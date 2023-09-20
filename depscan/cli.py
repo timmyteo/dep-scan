@@ -20,6 +20,7 @@ from vdb.lib.utils import parse_purl
 
 import oras.client
 
+import contrib.csaf
 from depscan.lib import privado, utils
 from depscan.lib.analysis import (
     PrepareVexOptions,
@@ -247,6 +248,13 @@ def build_args():
         help="Display the version",
         action="version",
         version="%(prog)s " + get_version(),
+    )
+    parser.add_argument(
+        "--csaf",
+        action="store_true",
+        default=False,
+        dest="csaf",
+        help="Generate a CSAF",
     )
     return parser.parse_args()
 
@@ -768,6 +776,8 @@ def main():
         )
         if vdb_results:
             results = results + vdb_results
+        if args.csaf:
+            contrib.csaf.export_csaf(results)
         # Summarise and print results
         summarise(
             project_type,
