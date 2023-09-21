@@ -1,0 +1,35 @@
+[depscan.csaf.document]
+category = "csaf_security_advisory"
+title = ""
+
+
+[depscan.csaf.publisher]
+category = "vendor"
+name = "Vendor McVendorson"
+contact_details = ""
+namespace = "appthreat.com"
+
+
+[depscan.csaf.tracking]
+current_release_date = ""
+id = ""
+initial_release_date = ""
+status = "draft"
+version = 1
+
+
+[depscan.csaf.revision_history]
+rev_1 = "{date:,number:,summary:,filename:}"
+
+
+[depscan.csaf.product_tree]
+full_product_names = []
+
+
+[depscan.csaf.auto]
+increment_revisions = true
+product_tree = true
+release_dates = true
+
+
+
