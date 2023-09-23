@@ -776,8 +776,8 @@ def main():
         )
         if vdb_results:
             results = results + vdb_results
-        if args.csaf:
-            contrib.csaf.export_csaf(results)
+        if args.csaf and len(results) > 0:
+            contrib.csaf(results)
         # Summarise and print results
         summarise(
             project_type,
