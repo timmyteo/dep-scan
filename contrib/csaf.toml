@@ -1,9 +1,8 @@
-[depscan.csaf.document]
+[document]
 category = "csaf_security_advisory"
 title = ""
 
-
-[depscan.csaf.publisher]
+[publisher]
 # Required
 category = "vendor" # Valid categories are: coordinator, discoverer, other, translator, user, vendor
 name = "Vendor McVendorson"
@@ -12,54 +11,61 @@ namespace = "https://appthreat.com"
 contact_details = "vendor@mcvendorson.com"
 issuing_authority = ""
 
-
-# A revision entry will be automatically added to this file if you have enabled auto revision history and the status is "final"
+# An entry for the data in this section will be added to the revision_history if the status is final
 # The current date/time is default if not provided
 # id is required and best set by the document issuing authority, but we will create one if not provided
-[depscan.csaf.tracking]
+[tracking]
 # Required
 current_release_date = ""   # Do not enclose dates if in valid datetime format
 id = "Temp ID"
 initial_release_date = ""
 status = "draft"    # Valid statuses are: draft, final, interim
-version = "1"
+version = ""
 # Optional
-#aliases = []
+aliases = []
 
+[revision_history]
+# Include as many revision_history.revision entries as you like
+[[revision_history.revision]]
+date = "2022-09-22T20:54:06.186927"
+number = "1"
+summary = "Initial"
 
-# TODO: Sort these by date descending before exporting
-[depscan.csaf.revision_history]
-rev_1 = {date=2022-09-22T20:54:06.186927,number="1",summary="Initial",filepath="path/to/rev1.json"}
-rev_2 = {date=2023-09-22T20:54:06.186927,number="2",summary="Update",filepath=""}
+[[revision_history.revision]]
+date = "2023-09-22T20:54:06.186927"
+number = "2"
+summary = "Update"
 
-
-[depscan.csaf.notes]
-# Category and text are required to add a note, add as many notes as you need
+[notes]
+# Category and text are required to add a note, add as many notes.note as you need
 # Valid categories are: description, details, faq, general, legal_disclaimer, other, summary
-note1 = {audience="devs",category="general",text="la di da",title="note to devs"}
+[[notes.note]]
+audience = "devs"
+category = "general"
+text = "la di da"
+title = "note to devs"
 
+[product_tree]
+easy_import = "product_tree.json"
 
-#[depscan.csaf.product_tree]
-#full_product_names = ["myproduct1", "myproduct2"]
-
-
-[depscan.csaf.distribution]
+[distribution]
 text = "Sample text"
 # Label is required if tlp included
-tlp = {label="AMBER", url="https://tlp.com"}
+label = "AMBER"
+url = "https://tlp.com"
 
-
-[depscan.csaf.references]
-# Summary and url are required, include as many ref as you like
+[references]
+# Summary and url are required, include as many references.ref as you like
 # Category can be either "external" or "self"
-ref1 = {category="self",summary="summary1",url="https://url.com"}
-ref2 = {category="external",summary="summary2",url="https://url.com"}
+[[references.ref]]
+category = "self"
+summary = "summary1"
+url = "https://url.com"
 
-
-[depscan.csaf.auto]
-increment_revisions = true
-product_tree = true
-release_dates = true
+[[references.ref]]
+category = "external"
+summary = "summary2"
+url = "https://url.com"
 
 
 
