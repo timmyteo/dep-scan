@@ -4,14 +4,15 @@
 import argparse
 import json
 import os
+import sys
 import tempfile
 
+import tomli_w
 from quart import Quart, request
 from rich.panel import Panel
 from rich.terminal_theme import MONOKAI
 from vdb.lib import config
 from vdb.lib import db as db_lib
-from vdb.lib.aqua import AquaSource
 from vdb.lib.config import data_dir
 from vdb.lib.gha import GitHubSource
 from vdb.lib.nvd import NvdSource
@@ -20,7 +21,7 @@ from vdb.lib.utils import parse_purl
 
 import oras.client
 
-import contrib.csaf
+from depscan.lib.csaf import export_csaf
 from depscan.lib import privado, utils
 from depscan.lib.analysis import (
     PrepareVexOptions,
@@ -600,6 +601,67 @@ def main():
         src_dir = os.getcwd()
     reports_dir = args.reports_dir
     # Detect the project types and perform the right type of scan
+    if args.csaf:
+        if not os.path.exists((os.path.join(src_dir, "csaf.toml"))):
+            toml_data = {
+                "document": {
+                    "category": "csaf_security_advisory",
+                    "title": "Demo CSAF",
+                },
+                "publisher": {
+                    "category": "vendor",
+                    "name": "Vendor McVendorson",
+                    "namespace": "https://appthreat.com",
+                    "contact_details": "vendor@mcvendorson.com",
+                    "issuing_authority": "",
+                },
+                "tracking": {
+                    "current_release_date": "",
+                    "id": "Temp ID",
+                    "initial_release_date": "",
+                    "status": "draft",
+                    "version": "",
+                    "aliases": [],
+                },
+                "revision_history": {
+                },
+                "notes": {
+                    "note": [
+                        {
+                            "audience": "devs",
+                            "category": "general",
+                            "text": "la di da",
+                            "title": "note to devs",
+                        }
+                    ]
+                },
+                "product_tree": {"easy_import": ""},
+                "distribution": {
+                    "text": "Sample text",
+                    "label": "AMBER",
+                    "url": "https://tlp.com",
+                },
+                "references": {
+                    "ref": [
+                        {
+                            "category": "self",
+                            "summary": "summary1",
+                            "url": "https://url.com",
+                        }
+                    ]
+                },
+            }
+            with open(
+                os.path.join(src_dir, "csaf.toml"),
+                "wb",
+            ) as f:
+                tomli_w.dump(toml_data, f)
+            LOG.info("CSAF toml not found, template created in %s", src_dir)
+            LOG.info(
+                "Please fill out the toml with your project details and "
+                "run depscan again."
+            )
+            sys.exit(0)
     if args.project_type:
         project_types_list = args.project_type.split(",")
     elif args.bom:
@@ -777,7 +839,10 @@ def main():
         if vdb_results:
             results = results + vdb_results
         if args.csaf and len(results) > 0:
-            contrib.csaf.export_csaf(results)
+            new_res = []
+            for r in results:
+                new_res.append(r.to_dict())
+            export_csaf(new_res)
         # Summarise and print results
         summarise(
             project_type,

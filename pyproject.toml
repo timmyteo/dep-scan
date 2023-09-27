@@ -12,6 +12,8 @@ dependencies = [
     "PyYAML",
     "rich",
     "quart",
+    "tomli",
+    "tomli-w",
 ]
 
 requires-python = ">=3.8"
