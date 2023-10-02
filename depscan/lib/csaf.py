@@ -6,6 +6,7 @@ from datetime import datetime
 from urllib.error import HTTPError
 
 import requests
+import toml
 import tomli
 
 from depscan.lib.logger import LOG
@@ -1379,15 +1380,11 @@ def parse_revision_history(tracking):
         tracking["initial_release_date"] = dt
     match comb:
         case "draft-False":
-            hx["revision"] = [
-                {
-                    "date": tracking["initial_release_date"],
-                    "number": "1",
-                    "summary": "Initial"
-                    if comb == "final-False"
-                    else "Initial [draft]",
-                }
-            ]
+            hx["revision"] = [{
+            "date": tracking["initial_release_date"],
+            "number": "1",
+            "summary": "Initial" if comb == "final-False" else "Initial [draft]",
+        }]
         case "final-True":
             hx["revision"] = sorted(hx["revision"], key=lambda x: x["number"])
             tracking["initial_release_date"] = hx["revision"][0]["date"]
@@ -1404,7 +1401,7 @@ def parse_revision_history(tracking):
             hx["revision"].reverse()
     # if not tracking["initial_release_date"]:
     #     tracking["initial_release_date"] = hx["revision"][-1]["date"]
-    tracking["revision_history"] = hx["revision"]
+    tracking["revision_history"] = hx
     if not tracking["version"]:
         tracking["version"] = hx["revision"][0]["number"]
     return tracking
@@ -1560,6 +1557,9 @@ def export_csaf(results, src_dir, reports_dir):
         f"csaf_v{new_results['document']['tracking']['version']}.json",
     )
     json.dump(new_results, open(outfile, "w"), indent=4)
+    metadata["tracking"] = new_results["document"]["tracking"]
+    with open(toml_file_path, "w") as f:
+        toml.dump(metadata, f)
 
 
 def import_csaf_toml(toml_file_path):

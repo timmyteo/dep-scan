@@ -11,29 +11,6 @@ namespace = "https://appthreat.com"
 contact_details = "vendor@mcvendorson.com"
 issuing_authority = ""
 
-# An entry for the data in this section will be added to the revision_history if the status is final
-# The current date/time is default if not provided
-# id is required and best set by the document issuing authority
-[tracking]
-# Required
-current_release_date = ""   # Do not enclose dates if in valid datetime format
-id = ""
-initial_release_date = ""
-status = "draft"    # Valid statuses are: draft, final, interim
-version = ""
-
-[tracking.revision_history]
-# Include as many revision_history.revision entries as you like
-[[tracking.revision_history.revision]]
-date = "2023-09-22T20:54:06.186927"
-number = "2"
-summary = "Update"
-
-[[tracking.revision_history.revision]]
-date = "2022-09-22T20:54:06.186927"
-number = "1"
-summary = "Initial"
-
 [notes]
 # Category and text are required to add a note, add as many notes.note as you need
 # Valid categories are: description, details, faq, general, legal_disclaimer, other, summary
@@ -65,7 +42,28 @@ category = ""
 summary = ""
 url = ""
 
+# An entry for the data in this section will be added to the revision_history if the status is final
+# The current date/time is default if not provided
+# id is required and best set by the document issuing authority
+[tracking]
+# Required
+current_release_date = ""   # Do not enclose dates if in valid datetime format
+id = ""
+initial_release_date = ""
+status = "draft"    # Valid statuses are: draft, final, interim
+version = ""
 
+[tracking.revision_history]
+# Include as many revision_history.revision entries as you like
+[[tracking.revision_history.revision]]
+date = "2023-09-22T20:54:06.186927"
+number = "2"
+summary = "Update"
+
+[[tracking.revision_history.revision]]
+date = "2022-09-22T20:54:06.186927"
+number = "1"
+summary = "Initial"
 
 
 
