@@ -1,6 +1,6 @@
 [document]
-category = "csaf_security_advisory"
-title = ""
+category = "csaf_vex"
+title = "Your Title"
 
 [publisher]
 # Required
@@ -13,46 +13,44 @@ issuing_authority = ""
 
 # An entry for the data in this section will be added to the revision_history if the status is final
 # The current date/time is default if not provided
-# id is required and best set by the document issuing authority, but we will create one if not provided
+# id is required and best set by the document issuing authority
 [tracking]
 # Required
 current_release_date = ""   # Do not enclose dates if in valid datetime format
-id = "Temp ID"
+id = ""
 initial_release_date = ""
 status = "draft"    # Valid statuses are: draft, final, interim
 version = ""
-# Optional
-aliases = []
 
-[revision_history]
+[tracking.revision_history]
 # Include as many revision_history.revision entries as you like
-[[revision_history.revision]]
-date = "2022-09-22T20:54:06.186927"
-number = "1"
-summary = "Initial"
-
-[[revision_history.revision]]
+[[tracking.revision_history.revision]]
 date = "2023-09-22T20:54:06.186927"
 number = "2"
 summary = "Update"
+
+[[tracking.revision_history.revision]]
+date = "2022-09-22T20:54:06.186927"
+number = "1"
+summary = "Initial"
 
 [notes]
 # Category and text are required to add a note, add as many notes.note as you need
 # Valid categories are: description, details, faq, general, legal_disclaimer, other, summary
 [[notes.note]]
-audience = "devs"
-category = "general"
-text = "la di da"
-title = "note to devs"
+audience = ""
+category = ""
+text = ""
+title = ""
 
 [product_tree]
-easy_import = "product_tree.json"
+easy_import = "C:/Users/user/PycharmProjects/owasp-dep-scan/contrib/product_tree.json"
 
 [distribution]
-text = "Sample text"
+text = ""
 # Label is required if tlp included
-label = "AMBER"
-url = "https://tlp.com"
+label = ""
+url = ""
 
 [references]
 # Summary and url are required, include as many references.ref as you like
@@ -63,9 +61,9 @@ summary = "summary1"
 url = "https://url.com"
 
 [[references.ref]]
-category = "external"
-summary = "summary2"
-url = "https://url.com"
+category = ""
+summary = ""
+url = ""
 
 
 
